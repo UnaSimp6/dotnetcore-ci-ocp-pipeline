@@ -7,7 +7,7 @@ spec:
   - default: pipelines-dotnetcore-api
     name: APP_NAME
     type: string
-  - default: https://github.com/UnaSimp6/dotnetcore-ci-ocp-pipeline.git
+  - default: 'https://github.com/UnaSimp6/dotnetcore-ci-ocp-pipeline'
     name: GIT_REPO
     type: string
   - default: master
@@ -70,27 +70,27 @@ spec:
       workspaces:
         - name: source
           workspace: workspace
-  - name: git-update-deployment
-    params:
-      - name: GIT_REPOSITORY
-        value: $(params.CONFIG_GIT_REPO)
-      - name: CURRENT_IMAGE
-        value: $(params.IMAGE_NAME)
-      - name: NEW_IMAGE
-        value: $(params.IMAGE_NAME)
-      - name: NEW_DIGEST
-        value: $(tasks.build-and-push.results.IMAGE_DIGEST)
-      - name: KUSTOMIZATION_PATH
-        value: environments/dev
-      - name: GIT_REF
-        value: $(params.CONFIG_GIT_REVISION)
-    runAfter:
-      - build-and-push
-    taskRef:
-      kind: Task
-      name: git-update-deployment
-    workspaces:
-      - name: workspace
-        workspace: workspace 
-workspaces:
-  - name: workspace
+    - name: git-update-deployment
+      params:
+        - name: GIT_REPOSITORY
+          value: $(params.CONFIG_GIT_REPO)
+        - name: CURRENT_IMAGE
+          value: $(params.IMAGE_NAME)
+        - name: NEW_IMAGE
+          value: $(params.IMAGE_NAME)
+        - name: NEW_DIGEST
+          value: $(tasks.build-and-push.results.IMAGE_DIGEST)
+        - name: KUSTOMIZATION_PATH
+          value: environments/dev
+        - name: GIT_REF
+          value: $(params.CONFIG_GIT_REVISION)
+      runAfter:
+        - build-and-push
+      taskRef:
+        kind: Task
+        name: git-update-deployment
+      workspaces:
+        - name: workspace
+          workspace: workspace 
+  workspaces:
+    - name: workspace
