@@ -15,7 +15,7 @@ spec:
         app: pipelines-dotnetcore-api
     spec:
       containers:
-        - image: quay.io/ericbos1/dotnetcore:latest
+        - image: quay.io/usimpson/dotnetcore:latest
           imagePullPolicy: Always
           name: pipelines-dotnetcore-api
           ports:
